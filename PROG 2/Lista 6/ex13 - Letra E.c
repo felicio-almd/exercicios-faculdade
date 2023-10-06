@@ -13,15 +13,6 @@
       /* Declaração de constantes */
       #define LINHAS 7  
       #define COLUNAS 7   
-      /* Declaração de estruturas
-         Nome:
-         Objetivo: */
-
-      /* Declaração de funções
-         Nome:
-         Entrada:
-         Saída:
-         Objetivo: */
 
       /* Função principal */
       int main() {
@@ -29,7 +20,7 @@
          int M[LINHAS][COLUNAS];
          int i, j, soma;
 
-         //Entrada - A substituir com comentário adequado
+         //Entrada - le os elementos digitados da matriz
          printf("Digite os elementos matriz M[7][7]: \n");
          for (i = 0; i < LINHAS; i++){
             for (j = 0; j < COLUNAS; j++){
@@ -38,7 +29,7 @@
             }
          }
 
-         //Processamento - A substituir com comentário adequado
+         //Processamento - soma todos os elementos da matriz
          soma = 0;
 
          for (i = 0; i < LINHAS; i++){
@@ -47,8 +38,7 @@
             }
          }
 
-         //Saída - A substituir com comentário 
-         
+         //Saída -
          printf("A soma de todos os elementos da Matriz eh: %d . \n", soma);
 
          //Encerramento
