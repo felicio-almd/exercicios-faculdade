@@ -7,32 +7,72 @@
          1.0 Versão Original. Responsável: Felicio Almeida
       ********************************************************************/
 
-      /* Importação de Bibliotecas */
-      #include <stdio.h>
+     /* Importação de Bibliotecas */
+#include <stdio.h>
 
-      /* Declaração de constantes */
+/* Declaração de constantes */
+#define LINHAS 4
+#define COLUNAS 4
 
-      /* Declaração de estruturas
-         Nome:
-         Objetivo: */
+/* Função principal */
+int main() {
+    /* Declaração de variáveis */
+    int a[LINHAS][COLUNAS];
+    int i, j, zeros, linhasNulas, colunasNulas;
 
-      /* Declaração de funções
-         Nome:
-         Entrada:
-         Saída:
-         Objetivo: */
+    //Entrada -
+    printf("Digite os elementos da matriz:\n");
+    for (i = 0; i < LINHAS; i++){
+        for (j = 0; j < COLUNAS; j++){
+            printf("Elemento[%d][%d]:", i+1, j+1);
+            scanf("%d", &a[i][j]);
+        }
+    }
 
-      /* Função principal */
-      int main() {
-         /* Declaração de variáveis */
+    printf("Matriz Gerada:\n");
+    for (i = 0; i < LINHAS; i++){
+        for (j = 0; j < COLUNAS; j++){
+            printf("%3d", a[i][j]);
+        }
+        printf("\n");
+    }
 
-         //Entrada - A substituir com comentário adequado
 
-         //Processamento - A substituir com comentário adequado
+    //Processamento -
+    linhasNulas = 0;
+    colunasNulas = 0;
 
-         //Saída - A substituir com comentário adequado
+    for (i = 0; i < LINHAS; i++){
+        zeros = 0;
+        for (j = 0; j < COLUNAS; j++){
+            if ( a[i][j] == 0 ){
+                zeros++;
+            }
+        }
+        if (zeros == LINHAS) {
+            linhasNulas++;
+        }
+    }
 
-         //Encerramento
-         getchar();
-         return 0;
-      }
+    for (j = 0; j < COLUNAS; j++){
+        zeros = 0;
+        for (i = 0; i < LINHAS; i++){
+            if ( a[i][j] == 0 ){
+                zeros++;
+            }
+        }
+        if (zeros == COLUNAS) {
+            colunasNulas++;
+        }
+    }
+
+
+    //Saída -
+    printf("A matriz tem %d linhas nulas e %d colunas nulas.\n", linhasNulas, colunasNulas);
+
+
+
+    //Encerramento
+    getchar();
+    return 0;
+}
