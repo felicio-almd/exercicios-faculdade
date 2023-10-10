@@ -11,6 +11,8 @@ int main() {
     /* Declaração de variáveis */
     char m[10][2];
     char g[2];
+    int acertos[10]
+    int erros[10];
     int i, j;
 
     //Entrada -
@@ -26,12 +28,36 @@ int main() {
             printf("Digite a resposta %d do aluno %d : ", j+1, i+1);
             scanf(" %c", &m[i][j]);
         }
-        if (m[j] == g[i]){
-            resultado++;
-        }
     }
-    
-    printf("Resultados")
+
+    printf("Resultados: \n");
+    for ( i = 0 ; i < 10 ; i++) {
+        int acerto = 0;
+        int erro = 0;
+
+        for ( j = 0 ; j < 2; j++){
+            if(vetorA[j] == matriz[i][j]){
+                acerto++;
+            } else {
+                erro++;
+            }
+        }
+        acertos[i] = acerto;
+        erros[i] = erro;
+    }
+
+    printf("\n ==== Resultados  ==== \n\n");
+
+    for ( i = 0; i <5 ; i ++){
+        printf("Aluno %d",i+1);
+        printf("\n");
+        printf("  Acertos : %d",acertos[i]);
+        printf("\n");
+        printf("  Erros : %d",erros[i]);
+        printf("\n");
+        printf("\n");
+    }
+ }
 
 
 
