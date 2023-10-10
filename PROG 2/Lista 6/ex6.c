@@ -1,38 +1,48 @@
-      /***************************************************************************
-         CABEÇALHO
-         Enunciado:
-         Autor: Felicio Almeida
 
-         Histórico de Versão
-         1.0 Versão Original. Responsável: Felicio Almeida
-      ********************************************************************/
 
-      /* Importação de Bibliotecas */
-      #include <stdio.h>
+/* Importação de Bibliotecas */
+#include <stdio.h>
 
-      /* Declaração de constantes */
+/* Declaração de constantes */
 
-      /* Declaração de estruturas
-         Nome:
-         Objetivo: */
 
-      /* Declaração de funções
-         Nome:
-         Entrada:
-         Saída:
-         Objetivo: */
+/* Função principal */
+int main() {
+    /* Declaração de variáveis */
+    char m[10][2];
+    char g[2];
+    int i, j;
 
-      /* Função principal */
-      int main() {
-         /* Declaração de variáveis */
+    //Entrada -
+    printf("Digite o gabarito:\n ");
+    for ( i = 0; i < 2; i++){
+        printf("questao[%d]: ", i+1);
+        scanf(" %c", &g[i]);
+    }
 
-         //Entrada - A substituir com comentário adequado
+    printf("Digite as respostas: \n");
+    for (i = 0; i < 10; i++){
+        for (j = 0; j < 2; j++) {
+            printf("Digite a resposta %d do aluno %d : ", j+1, i+1);
+            scanf(" %c", &m[i][j]);
+        }
+        if (m[j] == g[i]){
+            resultado++;
+        }
+    }
+    
+    printf("Resultados")
 
-         //Processamento - A substituir com comentário adequado
 
-         //Saída - A substituir com comentário adequado
 
-         //Encerramento
-         getchar();
-         return 0;
-      }
+
+    //Processamento -
+
+
+    //Saída -
+
+
+    //Encerramento
+    getchar();
+    return 0;
+}
