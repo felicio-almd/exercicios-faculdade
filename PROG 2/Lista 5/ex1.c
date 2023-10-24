@@ -10,29 +10,23 @@
       /* Importação de Bibliotecas */
       #include <stdio.h>
 
-      /* Declaração de constantes */
-
-      /* Declaração de estruturas
-         Nome:
-         Objetivo: */
-
-      /* Declaração de funções
-         Nome:
-         Entrada:
-         Saída:
-         Objetivo: */
-
-      /* Função principal */
       int main() {
-         /* Declaração de variáveis */
+      int V[6];
+      int contador_negativos = 0;
 
-         //Entrada - A substituir com comentário adequado
+      // Leitura dos valores no vetor
+      for (int i = 0; i < 6; i++) {
+         printf("Digite o valor para V[%d]: ", i);
+         scanf("%d", &V[i]);
 
-         //Processamento - A substituir com comentário adequado
+         // Verifica se o valor é negativo e incrementa o contador, se for o caso
+         if (V[i] < 0) {
+               contador_negativos++;
+         }
+      }
 
-         //Saída - A substituir com comentário adequado
+      // Exibição do resultado
+      printf("Quantidade de valores negativos no vetor: %d\n", contador_negativos);
 
-         //Encerramento
-         getchar();
-         return 0;
+      return 0;
       }
