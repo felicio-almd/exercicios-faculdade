@@ -1,167 +1,150 @@
-/*CABEÇALHO
+/*CABEï¿½ALHO
 Arquivo: infoaluno.c
-Objetivo:Coletar informações aluno.
-Versão 1.0. Responsável: Matheus Paris.
+Objetivo:Coletar informaï¿½ï¿½es aluno.
+Versï¿½o 1.0. Responsï¿½vel: Matheus Paris.
 
-Versão 2.0. Responsável: Lucas S. T. M.
-Modificação: Solicitação de nota de p1 e p2 e cálculo de média parcial.
+Versï¿½o 2.0. Responsï¿½vel: Lucas S. T. M.
+Modificaï¿½ï¿½o: Solicitaï¿½ï¿½o de nota de p1 e p2 e cï¿½lculo de mï¿½dia parcial.
 
-Versão 3.0. Responsável: José Parente.
-Modificação: Cálculo de média final.
+Versï¿½o 3.0. Responsï¿½vel: Josï¿½ Parente.
+Modificaï¿½ï¿½o: Cï¿½lculo de mï¿½dia final.
 
-Versão 4.0. Responsável: Camila Camata.
-Modificação: Exibir se aluno está ou não aprovado.
+Versï¿½o 4.0. Responsï¿½vel: Camila Camata.
+Modificaï¿½ï¿½o: Exibir se aluno estï¿½ ou nï¿½o aprovado.
 
-Versão 5.1. Responsável: Antonella Mota
-Modificação: Loop com 25 alunos.
+Versï¿½o 5.1. Responsï¿½vel: Antonella Mota
+Modificaï¿½ï¿½o: Loop com 25 alunos.
 
-Versão 6.0. Responsável: João Lucas
-Modificação: Contagem dos alunos que ficaram abaixo
-ou acima da média da turma.
+Versï¿½o 6.0. Responsï¿½vel: Joï¿½o Lucas
+Modificaï¿½ï¿½o: Contagem dos alunos que ficaram abaixo
+ou acima da mï¿½dia da turma.*/
 
-Versão 7.0. Responsável: Felicio Almeida
-Modificação: Gerar uma matriz de médias de um grupo de alunos em um conjunto de disciplinas
-*/
+/* Versï¿½o 7.0. Responsï¿½vel: Felicio Almeida
+Modificaï¿½ï¿½o: a partir da 5.2 gerar uma matriz de mÃ©dias de um grupo de alunos 
+em um conjunto de disciplinas.*/
 
-/*IMPORTAÇÃO DE BIBLIOTECAS*/
+
+/*IMPORTAï¿½ï¿½O DE BIBLIOTECAS*/
 #include <stdio.h>
 #include <string.h>
 
-
-typedef struct aluno{
-    char nome[60], curso[20], matricula[10], disciplina[20], resposta;
-    int dd_nasc, mm_nasc, a_nasc, periodo, i, cont = 0, ab_media = 0, ac_media = 0, ig_media = 0;
-} tAluno;
-
+#define TOTAL_ALUNOS 25
+#define TOTAL_DISCIPLINAS 5
 
 /*CORPO PRINCIPAL*/
 int main(){
-    /*DECLARAÇÃO DE VARIÁVEIS*/
-    char nome[60], curso[20], matricula[10], disciplina[20], resposta;
-    int dd_nasc, mm_nasc, a_nasc, periodo, i, cont = 0, ab_media = 0, ac_media = 0, ig_media = 0;
-    float nota_1, nota_2, md_parcial, notaProvaFinal, mdFinal, mdf_alunos[25], md_turma = 0;
+    /*DECLARAï¿½ï¿½O DE VARIï¿½VEIS*/
+    char nome[TOTAL_ALUNOS][60], curso[TOTAL_ALUNOS][20], matricula[TOTAL_ALUNOS][10], disciplina[TOTAL_DISCIPLINAS][20];
+    int dd_nasc[TOTAL_ALUNOS], mm_nasc[TOTAL_ALUNOS], a_nasc[TOTAL_ALUNOS], periodo[TOTAL_ALUNOS], i, j, num_alunos, num_disciplinas;
+    float notas[TOTAL_ALUNOS][TOTAL_DISCIPLINAS][2], md_parcial[TOTAL_ALUNOS][TOTAL_DISCIPLINAS], notaProvaFinal[TOTAL_ALUNOS][TOTAL_DISCIPLINAS], mdFinal[TOTAL_ALUNOS][TOTAL_DISCIPLINAS];
+    float media_disciplina[TOTAL_DISCIPLINAS] = {0.0};
+    float media_aluno[TOTAL_ALUNOS] = {0.0};
 
+    /* Solicitar nÃºmero de alunos e nÃºmero de disciplinas */
+    printf("Informe o numero de alunos (ate 25): ");
+    scanf("%d", &num_alunos);
+    setbuf(stdin, NULL); // Limpeza de buffer;
+    printf("Informe o numero de disciplinas (ate 5): ");
+    scanf("%d", &num_disciplinas);
+    setbuf(stdin, NULL); // Limpeza de buffer;
 
-    do {
-        /*SOLICITAÇÃO DE ENTRADAS:
-         -1: Solicitar informações do aluno */
-         printf("\n-----SOLICITACAO DE DADOS------\n");
-         printf("\nDigite seu nome: ");
-         gets(nome);
-         setbuf(stdin,NULL); //Limpeza de buffer;
+    /* LOOP PARA CADA ALUNO */
+    for (i = 0; i < num_alunos; i++) {
+        /* SolicitaÃ§Ã£o de entradas para cada aluno e disciplina */
+        for (j = 0; j < num_disciplinas; j++) {
+         /*Solicitar informaï¿½ï¿½es do aluno */
+         printf("\n----- SOLICITACAO DE DADOS PARA ALUNO %d, DISCIPLINA %d -----\n", i + 1, j + 1);
+            printf("\nDigite seu nome: ");
+            gets(nome[i]);
+            setbuf(stdin, NULL); // Limpeza de buffer;
+            printf("\nInforme sua data de nascimento. Formato -> dd mm aaaa: ");
+            scanf("%d %d %d", &dd_nasc[i], &mm_nasc[i], &a_nasc[i]);
+            printf("\nInforme sua matricula: ");
+            gets(matricula[i]);
+            setbuf(stdin, NULL); // Limpeza de buffer;
+            printf("\nInforme seu curso: ");
+            gets(curso[i]);
+            setbuf(stdin, NULL); // Limpeza de buffer;
+            printf("\nInforme periodo: ");
+            scanf("%d", &periodo[i]);
+            printf("\nInforme nome da disciplina: ");
+            gets(disciplina[j]);
+            setbuf(stdin, NULL); // Limpeza de buffer;
+            printf("\nDigite nota da primeira avaliacao: ");
+            scanf("%f", &notas[i][j][0]);
+            printf("\nDigite nota da segunda avaliacao: ");
+            scanf("%f", &notas[i][j][1]);
+            setbuf(stdin, NULL); // Limpeza de buffer;
 
-         printf("\nInforme sua data de nascimento. Formato -> dd mm aaaa: ");
-         scanf("%d %d %d",&dd_nasc,&mm_nasc,&a_nasc);
-         setbuf(stdin,NULL); //Limpeza de buffer;
+            /* CÃ¡lculo da mÃ©dia parcial para a disciplina */
+            md_parcial[i][j] = (notas[i][j][0] + notas[i][j][1]) / 2;
 
-         printf("\nInforme sua matricula: ");
-         gets(matricula);
+            /* Se mÃ©dia parcial do aluno na disciplina < 7, solicitar nota da prova final */
+            if (md_parcial[i][j] < 7) {
+                printf("\nInforme nota da avaliacao final: ");
+                scanf("%f", &notaProvaFinal[i][j]);
+                setbuf(stdin, NULL); // Limpeza de buffer;
 
-         printf("\nInforme seu curso: ");
-         gets(curso);
-         setbuf(stdin,NULL); //Limpeza de buffer;
-
-         printf("\nInforme periodo: ");
-         scanf("%d",&periodo);
-         setbuf(stdin,NULL);//Limpeza de buffer;
-
-         printf("\nDeseja verificar qual disciplina: ");
-         gets(disciplina);
-         setbuf(stdin,NULL);//Limpeza de buffer;
-
-         printf("\nDigite nota da primeira avaliacao: ");
-         scanf("%f",&nota_1);
-
-         printf("\nDigite nota da segunda avaliacao: ");
-         scanf("%f",&nota_2);
-         setbuf(stdin,NULL);//Limpeza de buffer;
-
-         /*PROCESSAMENTO:
-         -1. Cálculo da média parcial*/
-            md_parcial=(nota_1+nota_2)/2;
-         /*
-         -2. Se média parcial do aluno <7 solicitar nota da prova final*/
-         if(md_parcial<7){
-            printf("\nInforme nota da avaliacao final: ");
-            scanf("%f",&notaProvaFinal);
-            setbuf(stdin,NULL);//Limpeza de buffer;
-
-            /*2.1. Cálculo média  final do aluno*/
-                mdFinal=(md_parcial+notaProvaFinal)/2;
-         }
-
-         /*Preenchimento do vetor mdf_alunos com as notas finais dos alunos*/
-         if (md_parcial < 7){
-            mdf_alunos[cont] = mdFinal;
-         }
-         else{
-            mdf_alunos[cont] = md_parcial;
-         }
-
-         /*SAÍDA DE DADOS:
-         1. EXIBIR INFORMAÇÕES ALUNO*/
-         printf("\n------INFORMACOES DO ALUNO------\n   ");
-         printf("\nNome: %s.", nome);
-         printf("\nData de Nascimento: %d/ %d/ %d.", dd_nasc, mm_nasc, a_nasc);
-         printf("\nCurso: %s.",curso);
-         printf("\nPeriodo: %d.",periodo);
-         printf("\nDisciplina: %s.",disciplina);
-         printf("\nNota da primeira avaliacao: %.2f",nota_1);
-         printf("\nNota da segunda avaliacao: %.2f",nota_2);
-         printf("\n----- RESULTADO ------");
-         printf("\nMedia Parcial: %.2f",md_parcial);
-
-        /*Caso aluno esteja reprovado, exibir mensagem de reprovação, caso contrário exibir aprovação;*/
-        if(md_parcial<7){
-        /*2. Exibir média final do aluno*/
-            printf("\nMedia Final: %.2f",mdFinal);
-            setbuf(stdin,NULL);//Limpeza de buffer;
-
-        /*3. Se aluno com média final < 5 exibir mensagem de reprovação,
-             caso contrário exibir aprovação*/
-            if(mdFinal<5){
-                printf("\nAluno reprovado por nota.\n");
+                /* CÃ¡lculo mÃ©dia final do aluno na disciplina */
+                mdFinal[i][j] = (md_parcial[i][j] + notaProvaFinal[i][j]) / 2;
             }
-            else{
-                printf("\nAluno aprovado com AF.\n");
-            }
-         }
-         else{
-            printf("\nAluno aprovado.\n");
-         }
-
-        printf("Voce deseja cadastrar mais um aluno? ");
-        scanf("%c", &resposta);
-        cont++;
-    } while (resposta == 'S');
-
-    /*Calculo da média da turma*/
-    for (i = 0; i < cont; i++){
-        md_turma += mdf_alunos[i];
+        }
     }
-    md_turma = md_turma / cont;
+    
+    /*PROCESSAMENTO:*/
 
-    /*Loop para verificar a quantidade de alunos acima, abaixo e na média da turma*/
-    /*for (i = 0; i < cont; i++){
-        if(mdf_alunos[i] > md_turma){
-            ac_media++;
+    /* CÃ¡lculo das mÃ©dias da turma em cada disciplina */
+    for (j = 0; j < num_disciplinas; j++) {
+        for (i = 0; i < num_alunos; i++) {
+            media_disciplina[j] += md_parcial[i][j];
+            media_aluno[i] += md_parcial[i][j];
         }
-        else if(mdf_alunos[i] < md_turma){
-            ab_media++;
-        }
-        else{
-            ig_media++;
-        }
-    }*/
-    /*SAÍDA DE DADOS
-    4. Resultados em relação a turma*/
-    printf("\n---RESULTADOS EM RELCAO A TURMA---");
-    printf("\nQuantidade de alunos acima da media: %d\n", ac_media);
-    printf("Quantidade de alunos abaixo da media: %d\n", ab_media);
-    printf("Quantidade de alunos na media: %d\n", ig_media);
+        media_disciplina[j] /= num_alunos;
+    }
 
-     /*FINALIZAÇÃO*/
+    /* CÃ¡lculo dos coeficientes de cada aluno no curso */
+    for (i = 0; i < num_alunos; i++) {
+        media_aluno[i] /= num_disciplinas;
+    }
 
+    
+    /*SAï¿½DA DE DADOS
+    4. Resultados em relaï¿½ï¿½o a turma*/
+    /* SAÃDA DE DADOS */
+    for (i = 0; i < num_alunos; i++) {
+        printf("\n------ INFORMACOES DO ALUNO %d ------\n", i + 1);
+        printf("\nNome: %s.", nome[i]);
+        printf("\nData de Nascimento: %d/ %d/ %d.", dd_nasc[i], mm_nasc[i], a_nasc[i]);
+        printf("\nCurso: %s.", curso[i]);
+        printf("\nPeriodo: %d.", periodo[i]);
+        printf("\n----- RESULTADO ------");
+        for (j = 0; j < num_disciplinas; j++) {
+            printf("\nDisciplina %s:", disciplina[j]);
+            printf("\nNota da primeira avaliacao: %.2f", notas[i][j][0]);
+            printf("\nNota da segunda avaliacao: %.2f", notas[i][j][1]);
+            printf("\nMedia Parcial: %.2f", md_parcial[i][j]);
+
+            if (md_parcial[i][j] < 7) {
+                printf("\nMedia Final: %.2f", mdFinal[i][j]);
+
+                if (mdFinal[i][j] < 5) {
+                    printf("\nAluno reprovado por nota.\n");
+                } else {
+                    printf("\nAluno aprovado com AF.\n");
+                }
+            } else {
+                printf("\nAluno aprovado.\n");
+            }
+        }
+        printf("Coeficiente no curso: %.2f\n", media_aluno[i]);
+    }
+
+    /* MÃ©dias da turma em cada disciplina */
+    for (j = 0; j < num_disciplinas; j++) {
+        printf("\nMedia da turma na disciplina %s: %.2f", disciplina[j], media_disciplina[j]);
+    }
+
+    /*FINALIZAï¿½ï¿½O*/
      getchar();
      return 0;
 }
