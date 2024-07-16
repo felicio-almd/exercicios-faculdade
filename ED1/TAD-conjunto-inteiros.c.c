@@ -6,67 +6,68 @@ typedef struct lista {
     struct lista *prox;
 } Elemento;
 
-typedef struct conjunto{
+typedef struct conjunto {
     Elemento *lista;
 } Conjunto;
 
 
-void insereConjunto(Conjunto *conj, int valor){
+void insereConjunto(Conjunto *conj, int valor) {
     Elemento *aux = conj->lista;
     Elemento *novo = NULL;
 
-    while(aux) {
-        if(aux->chave == valor){
+    while (aux) {
+        if (aux->chave == valor) {
             printf("Ja existe esse valor na lista\n");
             return;
         }
         aux = aux->prox;
     }
-    novo = (Elemento *)calloc(1,sizeof(Elemento));
-    if(novo){
+
+    novo = (Elemento *)calloc(1, sizeof(Elemento));
+    if (novo) {
         novo->chave = valor;
         novo->prox = conj->lista;
         conj->lista = novo;
+    } else {
+        printf("Erro de alocação de memoria\n");
     }
-    else{
-        printf("Erro de alocação de memoria");
-    }
-
 }
 
-void imprimeLista (Elemento *no) {
-    printf("\n\tLista: ");
+void imprimeConjunto(Elemento *no) {
+    printf("\n\tConjunto: ");
     while (no) {
         printf("%d ", no->chave);
         no = no->prox;
     }
-
     printf("\n\n");
 }
 
-
-int main () {
+int main() {
     int valor, opcao;
-    Conjunto *conjunto = NULL;
+    Conjunto *conjunto = (Conjunto *)malloc(sizeof(Conjunto));
+    conjunto->lista = NULL;
 
     do {
-        printf("\n\ 0 - Sair\n\t 1 - Inserir Conjunto 2 - Imprimir lista\n\n");
+        printf("\n\t0 - Sair\n\t1 - Inserir Conjunto\n\t2 - Imprimir lista\n\n");
         scanf("%d", &opcao);
 
         switch (opcao) {
             case 1:
-                printf("Digite um valor");
+                printf("Digite um valor: ");
                 scanf("%d", &valor);
                 insereConjunto(conjunto, valor);
                 break;
             case 2:
-                imprimeLista(conjunto);
+                imprimeConjunto(conjunto->lista);
                 break;
             default:
                 if (opcao != 0) {
-                    printf("opcao invalida");
+                    printf("Opcao invalida\n");
                 }
+                break;
         }
     } while (opcao != 0);
+
+    free(conjunto);
     return 0;
 }
