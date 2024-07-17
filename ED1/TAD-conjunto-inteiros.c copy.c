@@ -44,6 +44,7 @@ void removeConjunto(Conjunto *conj, int valor)
 {
     Elemento *aux = conj->lista;
     Elemento *anterior = NULL;
+    int encontrado = 0;
 
     if (aux == NULL)
         printf("Chave nao existe");
@@ -61,12 +62,17 @@ void removeConjunto(Conjunto *conj, int valor)
             }
 
             free(aux);
+            encontrado = 1;
+            break;
         }
         anterior = aux;
         aux = aux->prox;
     }
-    printf("valor nao encontrado na lista\n");
-} // o que ta errado nessa funcao, desenhar no papel
+    if (!encontrado)
+    {
+        printf("Valor não encontrado na lista\n");
+    }
+}
 
 void imprimeConjunto(Elemento *no)
 {
@@ -77,6 +83,16 @@ void imprimeConjunto(Elemento *no)
         no = no->prox;
     }
     printf("\n\n");
+}
+
+void esvaziarConjunto (Conjunto *conj)
+{
+    Elemento *aux = conj->lista;
+    while(aux){
+        conj->lista = conj->lista->prox;
+        free(aux);
+        aux = conj->lista;
+    }
 }
 
 int main()
@@ -113,6 +129,14 @@ int main()
             break;
         }
     } while (opcao != 0);
+
+    Elemento *atual = conjunto->lista;
+    while (atual != NULL)
+    {
+        Elemento *temp = atual;
+        atual = atual->prox;
+        free(temp);
+    }
 
     free(conjunto);
     return 0;
