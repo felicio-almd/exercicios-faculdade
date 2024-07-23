@@ -85,25 +85,60 @@ void imprimeConjunto(Elemento *no)
     printf("\n\n");
 }
 
-void esvaziarConjunto (Conjunto *conj)
+void esvaziarConjunto(Conjunto *conj)
 {
     Elemento *aux = conj->lista;
-    while(aux){
+    while (aux)
+    {
         conj->lista = conj->lista->prox;
         free(aux);
         aux = conj->lista;
     }
 }
 
+int verificaVazio(Conjunto *conj)
+{
+    if (conj->lista == NULL)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+void buscaElemento(Conjunto *conj, int valor)
+{
+    Elemento *aux = conj->lista;
+    if (aux == NULL)
+    {
+        printf("\nlista vazia\n\n");
+        return;
+    }
+    while (aux != NULL && aux->chave != valor)
+    {
+        aux = aux->prox;
+    }
+    if (aux != NULL && aux->chave == valor)
+    {
+        printf("\nValor encontrado: %d\n", aux->chave);
+    }
+    else
+    {
+        printf("\nvalor nao encontrado.\n");
+    }
+}
+
 int main()
 {
-    int valor, opcao;
+    int valor, opcao, verificacaoVazio;
     Conjunto *conjunto = (Conjunto *)malloc(sizeof(Conjunto));
     conjunto->lista = NULL;
 
     do
     {
-        printf("\n\t0 - Sair\n\t1 - Imprimir lista\n\t2 - Inserir Conjunto\n\t3 - Remover uma chave do conjunto\n\n");
+        printf("\n\t0 - Sair\n\t1 - Imprimir lista\n\t2 - Inserir Conjunto\n\t3 - Remover uma chave do conjunto\n\t4 - Esvaziar conjunto\n\t5 - Verifica se eh vazio\n\t6 - Verifica se tem no conjunto\n\n");
         scanf("%d", &opcao);
 
         switch (opcao)
@@ -120,6 +155,25 @@ int main()
             printf("Digite o valor a ser removido do conjunto: ");
             scanf("%d", &valor);
             removeConjunto(conjunto, valor);
+            break;
+        case 4:
+            esvaziarConjunto(conjunto);
+            break;
+        case 5:
+            verificacaoVazio = verificaVazio(conjunto);
+            if (verificacaoVazio == 1)
+            {
+                printf("\nConjunto eh vazio\n\n");
+            }
+            else
+            {
+                printf("\nConjunto nao eh vazio\n");
+            }
+            break;
+        case 6:
+            printf("Digite um valor: ");
+            scanf("%d", &valor);
+            buscaElemento(conjunto, valor);
             break;
         default:
             if (opcao != 0)
