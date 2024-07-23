@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 // PROGRAMA DA LISTA COM NO CABEÇA SEM ORDENAÇÃO
-// Implementar funcao, busca, funcao exclui especifico e terminar a main
 
 typedef struct no
 {
