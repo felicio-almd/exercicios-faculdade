@@ -137,6 +137,22 @@ void excluiChave(Cabeca *L, int valor)
     }
 }
 
+No *buscaChave(Cabeca *L, int valor)
+{
+    No *aux = L->prox;
+    if (L->quantidade != 0)
+    {
+        while (aux != NULL && aux->chave != valor)
+        {
+            aux = aux->prox;
+        }
+        if (aux != NULL)
+        {
+            return (aux);
+        }
+    }
+}
+
 void imprimeLista(Cabeca *L)
 {
     No *aux = L->prox;
@@ -152,10 +168,11 @@ int main()
 {
     int valor, opcao;
     Cabeca *L = criaLista();
+    No *chave;
 
     do
     {
-        printf("\n\t0 - Sair\n\t1 - Imprimir Lista\n\t2 - Inserir no inicio\n\t3 - Inserir no Final\n\t4 - Remover no inicio\n\t5 - Remover do final\n\t6 - Remover chave\n\n");
+        printf("\n\t0 - Sair\n\t1 - Imprimir Lista\n\t2 - Inserir no inicio\n\t3 - Inserir no Final\n\t4 - Remover no inicio\n\t5 - Remover do final\n\t6 - Remover chave\n\t7 - Buscar chave\n\n");
         scanf("%d", &opcao);
 
         switch (opcao)
@@ -183,6 +200,19 @@ int main()
             printf("Digite um valor: ");
             scanf("%d", &valor);
             excluiChave(L, valor);
+            break;
+        case 7:
+            printf("Digite um valor: ");
+            scanf("%d", &valor);
+            chave = buscaChave(L, valor);
+            if (chave != NULL)
+            {
+                printf("\nChave encontrada: %d\n", chave->chave);
+            }
+            else
+            {
+                printf("\nChave nao encontrada\n\n");
+            }
             break;
         default:
             if (opcao != 0)
