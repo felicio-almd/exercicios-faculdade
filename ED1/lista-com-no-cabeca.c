@@ -160,9 +160,9 @@ int verificaContido (Cabeca *L1, Cabeca *L2) {
     if(L1->quantidade < L2->quantidade){
         return 0;
     }
-    while (aux2->prox != NULL) {
+    while (aux2 != NULL) {
         cont = 0;
-        while (aux1->prox != NULL){
+        while (aux1 != NULL){
             if (aux2->chave != aux1->chave){
                 aux1 = aux1->prox;
             } else {
