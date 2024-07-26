@@ -152,6 +152,38 @@ No *buscaChave(Cabeca *L, int valor)
     }
 }
 
+int verificaContido (Cabeca *L1, Cabeca *L2) {
+    No *aux1 = L1->prox;
+    No *aux2 = L2->prox;
+    int cont;
+
+    if(L1->quantidade < L2->quantidade){
+        return 0;
+    }
+    while (aux2->prox != NULL) {
+        cont = 0;
+        while (aux1->prox != NULL){
+            if (aux2->chave != aux1->chave){
+                aux1 = aux1->prox;
+            } else {
+                cont = 1;
+                break;
+            }
+        }
+        if (cont == 1){
+            aux2 = aux2->prox;
+        }
+        else {
+            break;
+        }
+    }
+    if (cont == 1 ){
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 void imprimeLista(Cabeca *L)
 {
     No *aux = L->prox;
