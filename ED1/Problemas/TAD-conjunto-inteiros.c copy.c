@@ -108,30 +108,23 @@ int verificaVazio(Conjunto *conj)
     }
 }
 
-void buscaElemento(Conjunto *conj, int valor)
+int buscaElemento(Conjunto *conj, int valor)
 {
     Elemento *aux = conj->lista;
-    if (aux == NULL)
+    while (aux != NULL)
     {
-        printf("\nlista vazia\n\n");
-        return;
-    }
-    while (aux != NULL && aux->chave != valor)
-    {
+        if (aux->chave == valor)
+        {
+            return 1; // Encontrado
+        }
         aux = aux->prox;
     }
-    if (aux != NULL && aux->chave == valor)
-    {
-        printf("\nValor encontrado: %d\n", aux->chave);
-    }
-    else
-    {
-        printf("\nvalor nao encontrado.\n");
-    }
+    return 0; // Não encontrado
 }
 
 int verificaContido(Conjunto *L1, Conjunto *L2)
 {
+    int encontrado;
     Elemento *aux1 = L1->lista;
     Elemento *aux2 = L2->lista;
 
@@ -142,7 +135,7 @@ int verificaContido(Conjunto *L1, Conjunto *L2)
 
     while (aux2 != NULL)
     {
-        int encontrado = 0;
+        encontrado = 0;
         aux1 = L1->lista; // Reinicia aux1 para percorrer L1
 
         while (aux1 != NULL)
@@ -164,6 +157,31 @@ int verificaContido(Conjunto *L1, Conjunto *L2)
     }
 
     return 1; // Todos os elementos de L2 foram encontrados em L1
+}
+
+Conjunto *uniao(Conjunto *L1, Conjunto *L2)
+{
+    Conjunto *resultado = (Conjunto *)malloc(sizeof(Conjunto));
+    resultado->lista = NULL; // Inicialize a lista do resultado
+    Elemento *aux1 = L1->lista;
+    Elemento *aux2 = L2->lista;
+
+    while (aux1 != NULL)
+    {
+        insereConjunto(resultado, aux1->chave);
+        aux1 = aux1->prox;
+    }
+
+    while (aux2 != NULL)
+    {
+        if (!buscaElemento(resultado, aux2->chave))
+        {
+            insereConjunto(resultado, aux2->chave);
+        }
+        aux2 = aux2->prox;
+    }
+
+    return resultado;
 }
 
 int main()
@@ -212,7 +230,14 @@ int main()
         case 6:
             printf("Digite um valor: ");
             scanf("%d", &valor);
-            buscaElemento(conjunto1, valor);
+            if (buscaElemento(conjunto1, valor))
+            {
+                printf("Valor encontrado: %d\n", valor);
+            }
+            else
+            {
+                printf("Valor não encontrado: %d\n", valor);
+            }
             break;
         case 7:
             // Preencher o conjunto 2 para teste
@@ -234,6 +259,11 @@ int main()
             {
                 printf("O conjunto 2 nao esta contido no conjunto 1.\n");
             }
+            Conjunto *conjunto3 = uniao(conjunto1, conjunto2); // Sem malloc, pois uniao já aloca
+            printf("A uniao dos conjuntos eh:\n");
+            imprimeConjunto(conjunto3->lista);
+            esvaziarConjunto(conjunto3); // Limpar a memória do conjunto resultante
+            free(conjunto3);
             break;
         default:
             if (opcao != 0)
