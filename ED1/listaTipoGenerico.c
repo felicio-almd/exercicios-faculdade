@@ -49,6 +49,13 @@ ListaGen *insereFinalListaGen(ListaGen *L, void *v)
     }
 }
 
+// Funcao busca chave
+ListaGen *buscaInfo(ListaGen *L, void *v)
+{
+}
+
+// Funcao exclui chave
+
 // Função para percorrer a lista e aplicar uma função callback a cada elemento
 void percorreListagen(ListaGen *L, void (*cb)(void *))
 {
