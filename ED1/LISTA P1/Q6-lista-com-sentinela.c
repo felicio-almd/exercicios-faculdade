@@ -133,7 +133,7 @@ No *buscaNo(Lista *L, int valor)
         }
         aux = aux->prox;
     }
-    printf("No nao encontrado"); // O(1)
+    printf("\nNo nao encontrado\n"); // O(1)
     return NULL;
 }
 
@@ -145,14 +145,14 @@ void trocaNo(Lista *L1, Lista *L2, int c1, int c2)
     No *tempProx = NULL;
     if (L1 == NULL || L2 == NULL) // O(1)
     {
-        printf("Uma das listas é vazia");
+        printf("\nUma das listas é vazia\n");
         return;
     }
     aux1 = buscaNo(L1, c1);           // O(n)
     aux2 = buscaNo(L2, c2);           // O(n)
     if (aux1 == NULL || aux2 == NULL) // O(1)
     {
-        printf("Uma das lista nao tem a chave desejado");
+        printf("\nUma das lista nao tem a chave desejada\n\n");
         return;
     }
 
@@ -200,13 +200,20 @@ void imprimeLista(Lista *L)
 
 int main()
 {
-    Lista *L1;
-    L1 = criaLista();
+    Lista *L1 = criaLista();
+    Lista *L2 = criaLista();
+
     insereInicio(L1, 1);
     insereFinal(L1, 2);
     insereFinal(L1, 3);
+    // insereFinal(L2, 2);
+    // insereFinal(L2, 3);
+    // insereFinal(L2, 4);
     imprimeLista(L1);
-    removeChave(L1, 2);
+    imprimeLista(L2);
+
+    trocaNo(L1, L2, 4, 4);
     imprimeLista(L1);
+    imprimeLista(L2);
     return 0;
 }
