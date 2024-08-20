@@ -56,8 +56,7 @@ No *insercao(No *T, int ch)
 
 No *sucessor(No *ch, No **paisuc)
 {
-    No *sucessor = NULL;
-    sucessor = ch->dir;
+    No *sucessor = ch->dir;
     *paisuc = ch;
 
     while (sucessor != NULL && sucessor->esq != NULL)
@@ -99,17 +98,28 @@ No *remover(No *T, int ch)
         }
 
         No *paiSuc = NULL;
-        No *sucessor = sucessor(T->dir, &paiSuc);
+        No *suc = sucessor(T, &paiSuc);
 
-        T->chave = sucessor->chave;
+        T->chave = suc->chave;
 
-        T->dir = remover(T->dir, sucessor->chave);
+        if (paiSuc->esq == suc)
+        {
+            paiSuc->esq = suc->dir;
+        }
+        else
+        {
+            paiSuc->dir = suc->dir;
+        }
+
+        free(suc);
     }
 
     return T;
 }
 
 // falta fazer o nivel da arvore
+
+// Impressao em ordem
 void imprime(No *T)
 {
     if (T == NULL)
@@ -130,4 +140,38 @@ void imprime(No *T)
     {
         imprime(T->dir);
     }
+}
+
+void imprimePosOrdem(No *T)
+{
+    if (T == NULL)
+    {
+        printf("\nARVORE VAZIA\n");
+        return;
+    }
+
+    // Primeiro visita o filho esquerdo
+    imprimePosOrdem(T->esq);
+
+    // Depois visita o filho direito
+    imprimePosOrdem(T->dir);
+
+    // Por último, visita o nó raiz
+    printf("%d ", T->chave);
+}
+
+void imprimePreOrdem(No *T)
+{
+    if (T == NULL)
+    {
+        printf("\nARVORE VAZIA\n");
+        return;
+    }
+
+    printf("%d ", T->chave);
+
+    // Primeiro visita o filho esquerdo
+    imprimePreOrdem(T->esq);
+    // Depois visita o filho direito
+    imprimePreOrdem(T->dir);
 }
