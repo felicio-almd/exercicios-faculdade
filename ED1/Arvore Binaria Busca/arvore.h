@@ -24,7 +24,7 @@ No *criaNo(int valor);
     Retorno: ponteiro para o no que contem a chave, caso ela exista em T, ou NULL caso contrario
     Objetivo: buscar uma chave na arvore T
 */
-No *busca(No *T, int ch);
+No *busca(No *T, int ch, No **pred);
 
 /*
     Nome: insercao
@@ -43,7 +43,7 @@ No *insercao(No *T, int ch);
         T: ponteiro para o nó raiz da arvore
     Retorno: void
 */
-void imprime(No *T);
+void imprime(No *T, int a);
 
 /*
     Nome: remove

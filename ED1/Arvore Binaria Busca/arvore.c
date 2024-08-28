@@ -9,49 +9,61 @@ No *criaNo(int ch)
         exit(1);
     }
     novo->chave = ch;
+    novo->esq = NULL;
+    novo->dir = NULL;
+    return novo;
 }
 
-No *busca(No *T, int ch)
+No *busca(No *T, int ch, No **pred)
 {
     No *aux = T;
+
     while (aux != NULL)
     {
-        if (aux->chave == ch)
+        if (ch == aux->chave)
         {
             return aux;
         }
 
+        *pred = aux;
+
         if (ch < aux->chave)
         {
+            *pred = aux;
             aux = aux->esq;
         }
-        else
+        if (ch > aux->chave)
         {
+            *pred = aux;
             aux = aux->dir;
         }
     }
-    return aux;
+    return NULL;
 }
 
 // funcao de insercao na arvore com recursividade
 No *insercao(No *T, int ch)
 {
-    No *novo = criaNo(ch);
-    No *aux = T;
     if (T == NULL)
     {
-        T->chave = novo;
-        T->dir = NULL;
-        T->esq = NULL;
+        // Create and return a new node if the tree is empty
+        return criaNo(ch);
     }
-    else if (ch < T->chave)
+
+    if (ch < T->chave)
     {
+        // Insert into the left subtree
         T->esq = insercao(T->esq, ch);
     }
-    else
+    else if (ch > T->chave)
     {
+        // Insert into the right subtree
         T->dir = insercao(T->dir, ch);
     }
+
+    // After insertion, you might want to balance the tree (not implemented here)
+
+    return T;
 }
 
 No *sucessor(No *ch, No **paisuc)
@@ -117,30 +129,21 @@ No *remover(No *T, int ch)
     return T;
 }
 
-// falta fazer o nivel da arvore
-
 // Impressao em ordem
-void imprime(No *T)
+void imprime(No *T, int nivel)
 {
-    if (T == NULL)
+    int i;
+    if (T)
     {
-        printf("\nARVORE VAZIA\n");
-        return;
-    }
-
-    // Imprime em ordem (esquerda, raiz, direita)
-    if (T->esq != NULL)
-    {
-        imprime(T->esq);
-    }
-
-    printf("%d ", T->chave);
-
-    if (T->dir != NULL)
-    {
-        imprime(T->dir);
+        imprime(T->dir, nivel + 1);
+        for (i = 0; i < nivel; i++)
+            printf("\t");
+        printf("%d\n", T->chave);
+        imprime(T->esq, nivel + 1);
     }
 }
+
+/*
 
 void imprimePosOrdem(No *T)
 {
@@ -174,4 +177,4 @@ void imprimePreOrdem(No *T)
     imprimePreOrdem(T->esq);
     // Depois visita o filho direito
     imprimePreOrdem(T->dir);
-}
+} */
