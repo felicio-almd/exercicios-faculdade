@@ -1,6 +1,5 @@
 #ifndef __ARVORE_AVL_H__
 #define __ARVORE_AVL_H__
-#define max(a, b) ((a) > (b) ? (a) : (b))
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -27,7 +26,7 @@ NoAvl *criaNo(int valor);
     Retorno: ponteiro para o no que contem a chave, caso ela exista em T, ou NULL caso contrario
     Objetivo: buscar uma chave na arvore T
 */
-NoAvl *busca(NoAvl *T, int ch, NoAvl **pred);
+NoAvl *busca(NoAvl *T, int ch);
 
 /*
     Nome: insercao
@@ -46,7 +45,7 @@ NoAvl *insercao(NoAvl *T, int ch);
         T: ponteiro para o nó raiz da arvore
     Retorno: void
 */
-void imprime(NoAvl *T, int a);
+void imprime(NoAvl *raiz, int nivel);
 
 /*
     Nome: remove
@@ -86,12 +85,12 @@ int altura(NoAvl *n);
 int fatorBalanceamento(NoAvl *n);
 
 /*
-    Nome da função: atualizarAltura
+    Nome da função: max
     Parametro: n:(ponteiro para um nó da árvore)
     Retorno: void
     Objetivo: atualizar a altura do nó n
 */
-void atualizarAltura(NoAvl *n);
+int max(int a, int b);
 
 /*
     Nome da função: rotacionarDireita
@@ -108,21 +107,5 @@ NoAvl *rotacionarDireita(NoAvl *y);
     Objetivo: realizar rotação à esquerda
 */
 NoAvl *rotacionarEsquerda(NoAvl *x);
-
-/*
-    Nome da função: rotacionarEsquerdaDireita
-    Parametro: z:(ponteiro para um nó da árvore)
-    Retorno: ponteiro para o nó raiz após a rotação à esquerda-direita
-    Objetivo: realizar rotação à esquerda-direita
-*/
-NoAvl *rotacionarEsquerdaDireita(NoAvl *z);
-
-/*
-    Nome da função: rotacionarDireitaEsquerda
-    Parametro: z:(ponteiro para um nó da árvore)
-    Retorno: ponteiro para o nó raiz após a rotação à direita-esquerda
-    Objetivo: realizar rotação à direita-esquerda
-*/
-NoAvl *rotacionarDireitaEsquerda(NoAvl *z);
 
 #endif // __ARVORE_AVL_H__

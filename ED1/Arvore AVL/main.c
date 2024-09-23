@@ -31,7 +31,7 @@ int main()
             printf("Digite a chave a ser buscada: ");
             if (scanf("%d", &chave) == 1)
             {
-                NoAvl *resultado = busca(T, chave, &pred);
+                NoAvl *resultado = busca(T, chave);
                 if (resultado)
                     printf("Chave %d encontrada.\n", chave);
                 else
